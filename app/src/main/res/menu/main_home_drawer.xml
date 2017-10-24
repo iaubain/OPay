@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ico_sidemenu_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/ic_ico_tx_amount"
+            android:title="Payment" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ico_sidemenu_history"
+            android:title="History" />
+        <item
+            android:id="@+id/nav_user"
+            android:icon="@drawable/ico_sidemenu_users"
+            android:title="Users" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ico_sidemenu_exit"
+            android:title="Logout" />
+    </group>
+
+</menu>

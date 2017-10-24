@@ -1,0 +1,147 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.oltranz.opay.fragments.Register">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.oltranz.opay.utilities.views.Label
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Sign Up"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp" />
+
+        <com.oltranz.opay.utilities.views.HelperHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintBottomMargin="30">
+
+            <com.oltranz.opay.utilities.views.EditHelper
+                android:id="@+id/bName"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/border_gray"
+                android:drawableLeft="@drawable/ic_business"
+                android:gravity="center"
+                android:hint="BUSINESS NAME"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="6dp" />
+        </com.oltranz.opay.utilities.views.HelperHolder>
+
+        <com.oltranz.opay.utilities.views.HelperHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintBottomMargin="30">
+
+            <com.oltranz.opay.utilities.views.EditHelper
+                android:id="@+id/bTin"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/border_gray"
+                android:drawableLeft="@drawable/ic_register_count"
+                android:gravity="center"
+                android:hint="BUSINESS TIN"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="6dp" />
+        </com.oltranz.opay.utilities.views.HelperHolder>
+
+        <com.oltranz.opay.utilities.views.HelperHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintBottomMargin="30">
+
+            <com.oltranz.opay.utilities.views.EditHelper
+                android:id="@+id/bAddress"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/border_gray"
+                android:drawableLeft="@drawable/ic_register_count"
+                android:gravity="center"
+                android:hint="BUSINESS ADDRESS"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="6dp" />
+        </com.oltranz.opay.utilities.views.HelperHolder>
+
+        <com.oltranz.opay.utilities.views.HelperHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintBottomMargin="30">
+
+            <com.oltranz.opay.utilities.views.EditHelper
+                android:id="@+id/contactName"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/border_gray"
+                android:drawableLeft="@drawable/ic_person_black"
+                android:gravity="center"
+                android:hint="CONTACT NAME"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:padding="6dp" />
+        </com.oltranz.opay.utilities.views.HelperHolder>
+
+        <com.oltranz.opay.utilities.views.HelperHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintBottomMargin="30">
+
+            <com.oltranz.opay.utilities.views.EditHelper
+                android:id="@+id/contactEmail"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/border_gray"
+                android:drawableLeft="@drawable/ic_mail"
+                android:gravity="center"
+                android:hint="CONTACT EMAIL"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:padding="6dp" />
+        </com.oltranz.opay.utilities.views.HelperHolder>
+
+        <com.oltranz.opay.utilities.views.HelperHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:hintBottomMargin="30">
+
+            <com.oltranz.opay.utilities.views.EditHelper
+                android:id="@+id/contactPhone"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/border_gray"
+                android:drawableLeft="@drawable/ic_call"
+                android:gravity="center"
+                android:hint="CONTACT PHONE"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="6dp" />
+        </com.oltranz.opay.utilities.views.HelperHolder>
+
+        <com.oltranz.opay.utilities.views.MButton
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/button_selectable_black"
+            android:text="PROCEED"
+            android:textColor="@drawable/text_selectable_black"
+            android:textSize="21sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,84 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.oltranz.opay.fragments.Login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/mainlogo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <com.oltranz.opay.utilities.views.HelperHolder
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="21dp"
+                app:hintBottomMargin="30">
+
+                <com.oltranz.opay.utilities.views.EditHelper
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border_gray"
+                    android:drawableStart="@drawable/ic_person_black"
+                    android:gravity="center"
+                    android:hint="USERNAME"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="6dp" />
+            </com.oltranz.opay.utilities.views.HelperHolder>
+
+            <com.oltranz.opay.utilities.views.HelperHolder
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:hintBottomMargin="30"
+                app:passwordToggleEnabled="true">
+
+                <com.oltranz.opay.utilities.views.EditHelper
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/border_gray"
+                    android:drawableStart="@drawable/ic_secure_black"
+                    android:gravity="center"
+                    android:hint="PASSWORD"
+                    android:imeOptions="actionGo"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:padding="6dp" />
+            </com.oltranz.opay.utilities.views.HelperHolder>
+
+            <com.oltranz.opay.utilities.views.MButton
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="63dp"
+                android:background="@drawable/button_selectable_primary"
+                android:text="LOGIN"
+                android:textColor="@drawable/text_selectable_primary"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

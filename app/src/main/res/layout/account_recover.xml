@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.oltranz.opay.fragments.AccountRecover">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <com.oltranz.opay.utilities.views.Label
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit your "
+            android:textSize="18sp" />
+
+        <com.oltranz.opay.utilities.views.Label
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <com.oltranz.opay.utilities.views.Label
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="to receive an SMS"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <com.oltranz.opay.utilities.views.Label
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="with a recovery PIN"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="21dp"
+        android:orientation="vertical">
+
+        <com.oltranz.opay.utilities.views.HelperHolder
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:hintBottomMargin="30">
+
+            <com.oltranz.opay.utilities.views.EditHelper
+                android:id="@+id/contactPhone"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="@drawable/border_gray"
+                android:drawableLeft="@drawable/ic_call"
+                android:gravity="center"
+                android:hint="ENTER PHONE NUMBER"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="6dp" />
+
+            <com.oltranz.opay.utilities.views.MButton
+                android:id="@+id/register"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/button_selectable_black"
+                android:text="SUBMIT"
+                android:textColor="@drawable/text_selectable_black"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+        </com.oltranz.opay.utilities.views.HelperHolder>
+    </LinearLayout>
+</LinearLayout>

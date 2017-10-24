@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_coner">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/round_coner_blue"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/topBar">
+                    <com.oltranz.opay.utilities.views.Label
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="PAYMENT INFO"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:textSize="21sp"
+                        android:gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/topBar"
+                    android:padding="16dp"
+                    android:id="@+id/contentValue">
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintBottomMargin="27">
+
+                        <com.oltranz.opay.utilities.views.EditHelper
+                            android:id="@+id/phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/border_gray"
+                            android:drawableLeft="@drawable/ic_call"
+                            android:gravity="center"
+                            android:hint="PHONE NUMBER"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:paddingBottom="6dp"
+                            android:inputType="phone"/>
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintBottomMargin="27">
+
+                        <com.oltranz.opay.utilities.views.EditHelper
+                            android:id="@+id/amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="@drawable/border_gray"
+                            android:drawableLeft="@drawable/ic_shopping_cart"
+                            android:gravity="center"
+                            android:hint="AMOUNT TO PAY"
+                            android:padding="6dp"
+                            android:inputType="number"/>
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/bottomBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/contentValue"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <com.oltranz.opay.utilities.views.MButton
+                        android:id="@+id/cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_selectable_red"
+                        android:text="CANCEL"
+                        android:textColor="@drawable/text_selectable_red"
+                        android:textSize="21sp" />
+
+                    <com.oltranz.opay.utilities.views.MButton
+                        android:id="@+id/ok"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_selectable_green"
+                        android:text="PROCEED"
+                        android:textColor="@drawable/text_selectable_green"
+                        android:textSize="21sp" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
