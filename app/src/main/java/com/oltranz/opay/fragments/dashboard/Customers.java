@@ -95,7 +95,7 @@ public class Customers extends Fragment implements CustomerLoader.OnCustomerLoad
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
         mProgress("Loading customers");
-        CustomerLoader customerLoader = new CustomerLoader(wallet.getId(),Customers.this);
+        CustomerLoader customerLoader = new CustomerLoader(token, wallet.getId(),Customers.this);
         customerLoader.startLoading();
     }
     @Override
@@ -116,7 +116,7 @@ public class Customers extends Fragment implements CustomerLoader.OnCustomerLoad
     }
 
     public void refreshFragment(){
-        CustomerLoader customerLoader = new CustomerLoader(wallet.getId(),Customers.this);
+        CustomerLoader customerLoader = new CustomerLoader(token, wallet.getId(),Customers.this);
         customerLoader.startLoading();
     }
 

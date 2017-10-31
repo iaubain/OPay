@@ -13,7 +13,7 @@ import retrofit2.http.POST;
  */
 
 public interface PaymentServices {
-    String BASE_URL = "http://41.74.172.132:8080/";
+    String BASE_URL = "http://opay.rw/8080/";
     String PAYMENT_STATUS = "PaymentServiceProvider/command";
 
     String CMD_PAYMENT_STATUS = "pamentRequestByRef";

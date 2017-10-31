@@ -23,7 +23,7 @@ import retrofit2.http.Query;
  */
 
 public interface UserManagerServices {
-    String BASE_URL="http://41.74.172.132:8084/";
+    String BASE_URL="http://opay.rw/8084/";
     String LOGIN_URL = "oltranz/services/usermanagement/login";
     String GET_USER = "oltranz/services/usermanagement/users/permissions/";
     String PROFILE_PIC = "oltranz/services/usermanagement/file/download";

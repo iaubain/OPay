@@ -17,12 +17,14 @@ import retrofit2.Response;
  */
 
 public class WalletLoader {
+    private String token;
     private String merchantId;
     private OnWalletLoader mListener;
     private String message;
     private List<Wallet> wallets = new ArrayList<>();
 
-    public WalletLoader(String merchantId,OnWalletLoader mListener) {
+    public WalletLoader(String token, String merchantId,OnWalletLoader mListener) {
+        this.token = token;
         this.merchantId = merchantId;
         this.mListener = mListener;
     }
@@ -40,7 +42,7 @@ public class WalletLoader {
         void execute(String... parms) {
             try {
                 final WalletManagerServices walletServices = WalletServiceGen.createService(WalletManagerServices.class, WalletManagerServices.BASE_URL);
-                Call<List<Wallet>> callService = walletServices.getWallet(merchantId);
+                Call<List<Wallet>> callService = walletServices.getWallet(merchantId, token);
                 callService.enqueue(new Callback<List<Wallet>>() {
                     @Override
                     public void onResponse(Call<List<Wallet>> call, Response<List<Wallet>> response) {
@@ -67,7 +69,8 @@ public class WalletLoader {
 
                     @Override
                     public void onFailure(Call<List<Wallet>> call, Throwable t) {
-                        message = "Network call failure. "+t.getLocalizedMessage();
+                        t.printStackTrace();
+                        message = "Network call failure. ";
                         onPostExecute(wallets);
                     }
                 });

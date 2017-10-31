@@ -170,7 +170,7 @@ public class Graphs extends Fragment implements OnChartValueSelectedListener,
         mChart.getAxisRight().setEnabled(false);
 
         mProgress("Loading charts");
-        ProviderPaymentLoader providerPaymentLoader = new ProviderPaymentLoader(wallet.getId(), Graphs.this);
+        ProviderPaymentLoader providerPaymentLoader = new ProviderPaymentLoader(token, wallet.getId(), Graphs.this);
         providerPaymentLoader.startLoading();
     }
 
@@ -365,7 +365,7 @@ for (YourData data : dataObjects) {
     }
 
     public void refreshFragment(){
-        ProviderPaymentLoader providerPaymentLoader = new ProviderPaymentLoader(wallet.getId(), Graphs.this);
+        ProviderPaymentLoader providerPaymentLoader = new ProviderPaymentLoader(token, wallet.getId(), Graphs.this);
         providerPaymentLoader.startLoading();
     }
 

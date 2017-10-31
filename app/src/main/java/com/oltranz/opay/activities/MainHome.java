@@ -3,6 +3,7 @@ package com.oltranz.opay.activities;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,11 +38,13 @@ import android.widget.Toast;
 import com.oltranz.opay.R;
 import com.oltranz.opay.apiclient.MerchantServices;
 import com.oltranz.opay.config.Config;
+import com.oltranz.opay.fragments.HistoryLiquidationFrag;
 import com.oltranz.opay.fragments.HomeFragment;
 import com.oltranz.opay.fragments.Login;
 import com.oltranz.opay.fragments.dashboard.Customers;
 import com.oltranz.opay.fragments.dashboard.Graphs;
 import com.oltranz.opay.fragments.dashboard.Liquidate;
+import com.oltranz.opay.models.history.HistoryLiquidation;
 import com.oltranz.opay.models.login.LoginResponse;
 import com.oltranz.opay.models.merchant.MerchantDetails;
 import com.oltranz.opay.models.payment.PaymentRequest;
@@ -53,6 +56,7 @@ import com.oltranz.opay.utilities.DataFactory;
 import com.oltranz.opay.utilities.loader.MerchantLoader;
 import com.oltranz.opay.utilities.loader.ProfileLoader;
 import com.oltranz.opay.utilities.loader.UserDetailsLoader;
+import com.oltranz.opay.utilities.loader.WalletLoader;
 import com.oltranz.opay.utilities.services.TransactionCleaner;
 import com.oltranz.opay.utilities.updator.updtservice.UpdateService;
 import com.oltranz.opay.utilities.views.Label;
@@ -70,7 +74,8 @@ public class MainHome extends AppCompatActivity
         Customers.OnCustomer,
         UserDetailsLoader.OnUserDetails,
         ProfileLoader.OnProfileLoader,
-        MerchantLoader.OnMerchantLoader {
+        MerchantLoader.OnMerchantLoader,
+        HistoryLiquidationFrag.OnLiquidationHistoryFragment {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.nav_view)
@@ -89,6 +94,7 @@ public class MainHome extends AppCompatActivity
     private Intent alarmIntent;
     private PendingIntent pendingIntent;
     private AlarmManager alarm;
+    private MenuItem item;
 
     private UserDetails userDetails;
     private UserProfile userProfile;
@@ -220,6 +226,8 @@ public class MainHome extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu_home, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
+        this.item = searchItem;
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -230,7 +238,19 @@ public class MainHome extends AppCompatActivity
             @Override
             public boolean onQueryTextChange(String newText) {
                 //Query the list of element within a proper fragment.
-                return false;
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                if(fragment instanceof HistoryLiquidationFrag){
+                    if(item != null && !item.isVisible()){
+                        item.setVisible(true);
+                    }
+                    HistoryLiquidationFrag historyLiquidationFrag = (HistoryLiquidationFrag) fragment;
+                    historyLiquidationFrag.filter(newText);
+                }else{
+                    if(item != null){
+                        item.setVisible(false);
+                    }
+                }
+                return true;
             }
         });
         // Define the listener
@@ -250,6 +270,8 @@ public class MainHome extends AppCompatActivity
         // Assign the listener to that action item
         MenuItemCompat.setOnActionExpandListener(searchItem, expandListener);
 
+        searchItem.setVisible(false);
+
         return true;
     }
 
@@ -259,11 +281,7 @@ public class MainHome extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //handle menu clicks
 
         return super.onOptionsItemSelected(item);
     }
@@ -275,11 +293,9 @@ public class MainHome extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_home) {
-
+            fragmentHandler(getHomeFragment());
         } else if (id == R.id.nav_payment) {
-
+            fragmentHandler(getLiquidationHistory());
         } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_user) {
@@ -311,11 +327,14 @@ public class MainHome extends AppCompatActivity
     }
 
     private void fragmentHandler(Object object) {
-        if (object instanceof Login) {
-            getSupportActionBar().hide();
+        if (object instanceof HistoryLiquidationFrag) {
+            if(item != null && !item.isVisible()){
+                item.setVisible(true);
+            }
         } else {
-            if (!getSupportActionBar().isShowing())
-                getSupportActionBar().show();
+            if(item != null){
+                item.setVisible(false);
+            }
         }
         Fragment fragment = (Fragment) object;
         String backStateName = fragment.getClass().getSimpleName();
@@ -335,6 +354,30 @@ public class MainHome extends AppCompatActivity
         return HomeFragment.newInstance(loginResponse.getAccess_token(),
                 DataFactory.objectToString(merchantDetails),
                 DataFactory.objectToString(userDetails));
+    }
+
+    private Fragment getLiquidationHistory() {
+        if(wallet == null){
+            mProgress("Loading wallet");
+            WalletLoader walletLoader = new WalletLoader(loginResponse.getAccess_token(), merchantDetails.getId(),
+                    new WalletLoader.OnWalletLoader() {
+                        @Override
+                        public void onWalletLoader(boolean isLoaded, Object object) {
+                            dismissProgress();
+                            if(!isLoaded){
+                                Toast.makeText(MainHome.this, "Error: "+object, Toast.LENGTH_SHORT).show();
+                            }else{
+                                wallet = (Wallet) object;
+                            }
+                        }
+                    });
+            walletLoader.startLoading();
+        }
+        //Customers.newInstance(token, merchant, user, DataFactory.objectToString(wallet))
+        return HistoryLiquidationFrag.newInstance(loginResponse.getAccess_token(),
+                DataFactory.objectToString(merchantDetails),
+                DataFactory.objectToString(userDetails),
+                DataFactory.objectToString(wallet));
     }
 
     private void popBox(String message) {
@@ -571,5 +614,12 @@ public class MainHome extends AppCompatActivity
         Label merchantLabel = (Label) headerView.findViewById(R.id.merchantName);
         merchantLabel.setText(merchantName);
         fragmentHandler(getHomeFragment());
+    }
+
+    @Override
+    public void onLiquidationHistoryFragment(boolean isLoaded, Object object) {
+        if(!isLoaded){
+            customBox("Alert", object+"");
+        }
     }
 }

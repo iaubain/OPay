@@ -119,7 +119,7 @@ public class Liquidate extends Fragment implements BalanceLoader.OnBalanceLoader
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this,view);
         mProgress("Loading wallet balance");
-        BalanceLoader balanceLoader = new BalanceLoader(wallet.getId(), Liquidate.this);
+        BalanceLoader balanceLoader = new BalanceLoader(token, wallet.getId(), Liquidate.this);
         balanceLoader.startLoading();
 
         liquidateButton.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +158,7 @@ public class Liquidate extends Fragment implements BalanceLoader.OnBalanceLoader
     }
 
     public void refreshFragment(){
-        BalanceLoader balanceLoader = new BalanceLoader(wallet.getId(), Liquidate.this);
+        BalanceLoader balanceLoader = new BalanceLoader(token, wallet.getId(), Liquidate.this);
         balanceLoader.startLoading();
     }
 
@@ -172,7 +172,7 @@ public class Liquidate extends Fragment implements BalanceLoader.OnBalanceLoader
             builder.setPositiveButton("Refresh", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     mProgress("Loading wallet balance");
-                    BalanceLoader balanceLoader = new BalanceLoader(wallet.getId(), Liquidate.this);
+                    BalanceLoader balanceLoader = new BalanceLoader(token, wallet.getId(), Liquidate.this);
                     balanceLoader.startLoading();
                     dialog.dismiss();
                 }
@@ -199,7 +199,7 @@ public class Liquidate extends Fragment implements BalanceLoader.OnBalanceLoader
                     LiquidationWallet liquidationWallet = new LiquidationWallet(balance.getDueAmount(),"", merchantDetails.getId());
                     LiquidationRequest request = new LiquidationRequest(origin,liquidationWallet, userDetails.getUser().getId());
 
-                    LiquidationLoader liquidationLoader = new LiquidationLoader(request,Liquidate.this);
+                    LiquidationLoader liquidationLoader = new LiquidationLoader(token, request,Liquidate.this);
                     liquidationLoader.startLoading();
                     dialog.dismiss();
                 }
@@ -270,7 +270,7 @@ public class Liquidate extends Fragment implements BalanceLoader.OnBalanceLoader
                     LiquidationWallet liquidationWallet = new LiquidationWallet(balance.getDueAmount(),"", merchantDetails.getId());
                     LiquidationRequest request = new LiquidationRequest(origin,liquidationWallet, userDetails.getUser().getId());
 
-                    LiquidationLoader liquidationLoader = new LiquidationLoader(request,Liquidate.this);
+                    LiquidationLoader liquidationLoader = new LiquidationLoader(token, request,Liquidate.this);
                     liquidationLoader.startLoading();
 
                     dialog.dismiss();

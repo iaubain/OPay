@@ -24,12 +24,14 @@ import retrofit2.Response;
  */
 
 public class LiquidationLoader {
+    private String token;
     private LiquidationRequest request;
     private OnLiquidation mListener;
     private String message;
     private LiquidationResponse liquidationResponse = null;
 
-    public LiquidationLoader(LiquidationRequest request, OnLiquidation mListener) {
+    public LiquidationLoader(String token, LiquidationRequest request, OnLiquidation mListener) {
+        this.token = token;
         this.request = request;
         this.mListener = mListener;
     }
@@ -48,7 +50,7 @@ public class LiquidationLoader {
             try {
                 Log.d("Request", DataFactory.objectToString(request));
                 final WalletManagerServices walletServices = WalletServiceGen.createService(WalletManagerServices.class, WalletManagerServices.BASE_URL);
-                Call<LiquidationResponse> callService = walletServices.liquidation(request);
+                Call<LiquidationResponse> callService = walletServices.liquidation(request,token);
                 callService.enqueue(new Callback<LiquidationResponse>() {
                     @Override
                     public void onResponse(Call<LiquidationResponse> call, Response<LiquidationResponse> response) {
@@ -76,7 +78,8 @@ public class LiquidationLoader {
 
                     @Override
                     public void onFailure(Call<LiquidationResponse> call, Throwable t) {
-                        message = "Network call failure. "+t.getLocalizedMessage();
+                        t.printStackTrace();
+                        message = "Network call failure. ";
                         onPostExecute(liquidationResponse);
                     }
                 });

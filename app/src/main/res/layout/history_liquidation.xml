@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.oltranz.opay.fragments.HistoryLiquidationFrag">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="1">
+        <com.oltranz.opay.utilities.views.Label
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FROM"
+            android:padding="3dp"
+            android:gravity="center"/>
+        <com.oltranz.opay.utilities.views.Label
+            android:id="@+id/from"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:padding="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_gray"
+            android:text="yyy-mm-dd"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <com.oltranz.opay.utilities.views.Label
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TO"
+            android:padding="3dp"
+            android:gravity="center"/>
+        <com.oltranz.opay.utilities.views.Label
+            android:id="@+id/to"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:padding="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/border_gray"
+            android:text="yyy-mm-dd"/>
+        </LinearLayout>
+
+</LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/historyHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:gravity="center"
+            android:padding="3dp"
+            android:scrollbars="vertical">
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

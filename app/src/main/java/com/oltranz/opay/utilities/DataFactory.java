@@ -1,10 +1,13 @@
 package com.oltranz.opay.utilities;
 
+import android.content.Context;
+import android.telephony.TelephonyManager;
 import android.util.Patterns;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oltranz.opay.R;
 
 import java.io.IOException;
 import java.math.RoundingMode;
@@ -49,16 +52,21 @@ public class DataFactory {
     }
 
     public static final String formatDate(Date date) throws Exception {
+        DateFormat dFormat = new SimpleDateFormat("dd/MM/yyy", Locale.getDefault());
+        return dFormat.format(date);
+    }
+
+    public static final String formatDateTime(Date date) throws Exception {
         DateFormat dFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss", Locale.getDefault());
         return dFormat.format(date);
     }
 
-    public static final Date parseDate(String date) throws Exception {
+    public static final Date parseDateTime(String date) throws Exception {
         DateFormat dFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss", Locale.getDefault());
         return dFormat.parse(date);
     }
 
-    public static final Date parseStringDate(String date) throws Exception {
+    public static final Date parseStringDateTime(String date) throws Exception {
         DateFormat dFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss", Locale.getDefault());
         return dFormat.parse(date);
     }
@@ -97,13 +105,43 @@ public class DataFactory {
         return target != null && Patterns.PHONE.matcher(target).matches();
     }
 
-    public static String formatPhone(String phone) throws Exception {
-        String firstDigit = phone.subSequence(0, 2).toString();
-        if (phone.length() >= 12 && firstDigit.equals("250"))
-            return phone;
-        else if (phone.length() <= 10 && !firstDigit.equals("250"))
-            return "25" + phone;
-        else
-            throw new Exception("Invalid phone");
+    public static String formatPhone(String phone, Context context) throws Exception {
+        String countryCode = getCountryZipCode(context);
+        if(countryCode.equals("250")){
+            String firstDigit = phone.substring(0, 2);
+            if (phone.length() >= 12 && firstDigit.equals("250"))
+                return phone;
+            else if (phone.length() <= 10 && !firstDigit.equals("250"))
+                return "25" + phone;
+            else
+                throw new Exception("Invalid phone");
+        }else{
+            String inPutCode = phone.substring(0, countryCode.length()-1);
+            if(!countryCode.equals(inPutCode)){
+                throw new Exception("prefix "+countryCode);
+            }
+            if(isValidPhone(phone))
+                return phone;
+            else
+                throw new Exception("Invalid phone");
+        }
+
+    }
+    public static String getCountryZipCode(Context context){
+        String CountryID="";
+        String CountryZipCode="";
+
+        TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        //getNetworkCountryIso
+        CountryID= manager.getSimCountryIso().toUpperCase();
+        String[] rl=context.getResources().getStringArray(R.array.CountryCodes);
+        for(int i=0;i<rl.length;i++){
+            String[] g=rl[i].split(",");
+            if(g[1].trim().equals(CountryID.trim())){
+                CountryZipCode=g[0];
+                break;
+            }
+        }
+        return CountryZipCode;
     }
 }

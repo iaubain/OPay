@@ -105,24 +105,42 @@ public class Register extends Fragment implements RegisterUserLoader.RegisterInt
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(bName.getText().toString())) {
+                    bName.requestFocus();
                     bName.setError("Invalid business");
                 } else if (TextUtils.isEmpty(bTin.getText().toString())) {
-                    bName.setError("Invalid TIN");
+                    bTin.requestFocus();
+                    bTin.setError("Invalid TIN");
                 } else if (TextUtils.isEmpty(address.getText().toString())) {
+                    address.requestFocus();
                     address.setError("Invalid address");
                 } else if (TextUtils.isEmpty(contact.getText().toString())) {
+                    contact.requestFocus();
                     contact.setError("Invalid name");
                 } else if (TextUtils.isEmpty(email.getText().toString()) || !DataFactory.isValidEmail(email.getText().toString())) {
+                    email.requestFocus();
                     email.setError("Invalid email");
                 } else if (TextUtils.isEmpty(phone.getText().toString()) || !DataFactory.isValidPhone(phone.getText().toString())) {
+                    phone.requestFocus();
                     phone.setError("Invalid phone");
                 } else {
-                    termsAndConditions();
+                    phone.requestFocus();
+                    try {
+                        String phoneNumber = DataFactory.formatPhone(phone.getText().toString(), getContext());
+                        if(phoneNumber != null && !phoneNumber.isEmpty()){
+                            phone.setText(phoneNumber);
+                            termsAndConditions();
+                        }else{
+                            phone.setError("Invalid phone");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        phone.setError(e.getMessage());
+                    }
                 }
             }
         });
     }
-
+//c:/users/Hp/AppData/Local/Android/sdk/platform-tools
     public void termsAndConditions() {
         try {
             mainDialog = new Dialog(getContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen);

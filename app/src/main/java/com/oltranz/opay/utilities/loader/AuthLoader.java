@@ -70,7 +70,8 @@ public class AuthLoader {
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        message = "Network call failure. "+t.getLocalizedMessage();
+                        t.printStackTrace();
+                        message = "Network call failure. ";
                         onPostExecute(loginResponse);
                     }
                 });

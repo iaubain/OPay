@@ -74,7 +74,8 @@ public class PaymentStatusLoader {
 
                     @Override
                     public void onFailure(Call<PaymentStatus> call, Throwable t) {
-                        message = "Network call failure. "+t.getLocalizedMessage();
+                        t.printStackTrace();
+                        message = "Network call failure. ";
                         onPostExecute(paymentStatus);
                     }
                 });

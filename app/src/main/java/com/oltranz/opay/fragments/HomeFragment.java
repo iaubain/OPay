@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment implements
         ButterKnife.bind(this, view);
 
         mProgress("Loading wallet information");
-        WalletLoader walletLoader = new WalletLoader(merchantDetails.getId(), HomeFragment.this);
+        WalletLoader walletLoader = new WalletLoader(token, merchantDetails.getId(), HomeFragment.this);
         walletLoader.startLoading();
 
         payButton.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +188,7 @@ public class HomeFragment extends Fragment implements
             builder.setPositiveButton("Refresh", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     mProgress("Loading wallet information");
-                    WalletLoader walletLoader = new WalletLoader(merchantDetails.getId(), HomeFragment.this);
+                    WalletLoader walletLoader = new WalletLoader(token, merchantDetails.getId(), HomeFragment.this);
                     walletLoader.startLoading();
                     dialog.dismiss();
                 }
@@ -246,9 +246,23 @@ public class HomeFragment extends Fragment implements
                             amount.setError("Invalid amount");
                         } else {
                             //proceed with request payment
+                            try{
+                                String phoneNumber = DataFactory.formatPhone(phone.getText().toString(), getContext());
+                                if(phoneNumber != null && !phoneNumber.isEmpty()){
+                                    phone.setText(phoneNumber);
+                                }else{
+                                    phone.setError("Invalid phone");
+                                    return;
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                                phone.setError("Invalid number");
+                                return;
+                            }
+
                             try {
                                 PaymentRequest paymentRequest = new PaymentRequest();
-                                paymentRequest.setPayingAccountId(DataFactory.formatPhone(phone.getText().toString()));
+                                paymentRequest.setPayingAccountId(phone.getText().toString());
                                 paymentRequest.setAmount(amount.getText().toString());
                                 paymentRequest.setRequestRef(KeyGen.genId());
                                 paymentMode(paymentRequest);

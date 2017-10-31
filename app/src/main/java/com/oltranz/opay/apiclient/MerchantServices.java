@@ -18,7 +18,7 @@ import retrofit2.http.POST;
  */
 
 public interface MerchantServices {
-    String BASE_URL="http://opay.oltranz.com/";
+    String BASE_URL="http://opay.rw/";
     String GET_MERCHANT = "8080/ProvisioningApp/command";
     String REQUEST_PAYMENT = "8080/PaymentServiceProvider/command";
     String CREATE_MERCHANT = "8080/ProvisioningApp/command";

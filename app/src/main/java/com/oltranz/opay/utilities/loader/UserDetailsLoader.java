@@ -65,7 +65,8 @@ public class UserDetailsLoader {
 
                     @Override
                     public void onFailure(Call<UserDetails> call, Throwable t) {
-                        message = "Network call failure. "+t.getLocalizedMessage();
+                        t.printStackTrace();
+                        message = "Network call failure.";
                         onPostExecute(userDetails);
                     }
                 });
